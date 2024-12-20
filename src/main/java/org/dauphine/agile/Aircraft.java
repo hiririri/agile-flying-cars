@@ -12,13 +12,13 @@ public class Aircraft {
     }
 
     public void setPilot(Pilot pilot) {
-        if (this.pilot != null) {
-            this.pilot.removeAircraft(this);
-        }
-        this.pilot = pilot;
-        if (pilot != null) {
-            pilot.addAircraft(this);
-        }
+//        if (this.pilot != null) {
+//            this.pilot.removeAircraft(this);
+//        }
+//        this.pilot = pilot;
+//        if (pilot != null) {
+//            pilot.addAircraft(this);
+//        }
     }
 
     public Pilot getPilot() {
