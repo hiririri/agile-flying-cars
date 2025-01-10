@@ -6,4 +6,8 @@ public interface ModeStrategy {
 
     double decelerate(double amount);
 
+    double getCurrentSpeed();
+
+    double getCurrentFuel();
+
 }

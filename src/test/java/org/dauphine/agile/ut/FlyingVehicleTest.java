@@ -1,5 +1,8 @@
-package org.dauphine.agile;
+package org.dauphine.agile.ut;
 
+import org.dauphine.agile.DriveModeStrategy;
+import org.dauphine.agile.FlyModeStrategy;
+import org.dauphine.agile.FlyingVehicle;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,15 +12,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FlyingVehicleTest {
 
-    public static final int MAX_SPEED = 300;
-    public static final int INITIAL_FUEL = 100;
+    public static final double MAX_SPEED = 300;
+    public static final double INITIAL_FUEL = 100;
     public static final int MAX_ALTITUDE = 10000;
 
     private FlyingVehicle flyingVehicle;
 
     @BeforeEach
     void setUp() {
-        flyingVehicle = new FlyingVehicle(MAX_ALTITUDE, MAX_SPEED, INITIAL_FUEL);
+        flyingVehicle = new FlyingVehicle(MAX_ALTITUDE, MAX_SPEED, INITIAL_FUEL, "FGH-123");
     }
 
     @Test

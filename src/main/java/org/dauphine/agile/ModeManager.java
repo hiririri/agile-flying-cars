@@ -11,9 +11,24 @@ public class ModeManager {
 
     private final Map<Mode, ModeStrategy> modeStrategyMap;
 
-    public ModeManager(Mode initialMode, ModeStrategy driveStrategy, ModeStrategy flyStrategy) {
+    public ModeManager(int maxAltitude, double maxSpeed, double maxFuel) {
+        var speedManager = new SpeedManager(maxSpeed);
+        var fuelManager = new FuelManager(maxFuel);
+        var altitudeManager = new AltitudeManager(maxAltitude);
+
+        var driveStrategy = new DriveModeStrategy.Builder()
+                .fuelManager(fuelManager)
+                .speedManager(speedManager)
+                .build();
+
+        var flyStrategy = new FlyModeStrategy.Builder()
+                .fuelManager(fuelManager)
+                .speedManager(speedManager)
+                .altitudeManager(altitudeManager)
+                .build();
+
         this.modeStrategyMap = Map.of(DRIVE, driveStrategy, FLY, flyStrategy);
-        this.currentMode = initialMode;
+        this.currentMode = DRIVE;
     }
 
     public void switchMode() {

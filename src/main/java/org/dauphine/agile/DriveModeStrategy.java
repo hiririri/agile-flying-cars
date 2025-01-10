@@ -22,8 +22,14 @@ public class DriveModeStrategy implements ModeStrategy {
         return speedManager.decelerate(amount);
     }
 
+    @Override
     public double getCurrentSpeed() {
         return speedManager.getCurrentSpeed();
+    }
+
+    @Override
+    public double getCurrentFuel() {
+        return fuelManager.getCurrentFuel();
     }
 
     public static class Builder {

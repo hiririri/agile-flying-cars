@@ -1,28 +1,22 @@
 package org.dauphine.agile;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.dauphine.agile.Mode.FLY;
 
 public class FlyingVehicle {
 
+    private final String registration;
+
     private final ModeManager modeManager;
 
-    public FlyingVehicle(int maxAltitude, double maxSpeed, double maxFuel) {
-        var speedManager = new SpeedManager(maxSpeed);
-        var fuelManager = new FuelManager(maxFuel);
-        var altitudeManager = new AltitudeManager(maxAltitude);
+    public Set<Pilot> assignedPilots;
 
-        var driveStrategy = new DriveModeStrategy.Builder()
-                .fuelManager(fuelManager)
-                .speedManager(speedManager)
-                .build();
-
-        var flyStrategy = new FlyModeStrategy.Builder()
-                .fuelManager(fuelManager)
-                .speedManager(speedManager)
-                .altitudeManager(altitudeManager)
-                .build();
-
-        modeManager = new ModeManager(Mode.DRIVE, driveStrategy, flyStrategy);
+    public FlyingVehicle(int maxAltitude, double maxSpeed, double maxFuel, String registration) {
+        this.registration = registration;
+        modeManager = new ModeManager(maxAltitude, maxSpeed, maxFuel);
+        assignedPilots = new HashSet<>();
     }
 
     public void switchMode() {
@@ -62,10 +56,7 @@ public class FlyingVehicle {
     }
 
     public double getCurrentSpeed() {
-        return switch (getCurrentMode()) {
-            case DRIVE -> ((DriveModeStrategy) modeManager.getCurrentStrategy()).getCurrentSpeed();
-            case FLY -> ((FlyModeStrategy) modeManager.getCurrentStrategy()).getCurrentSpeed();
-        };
+        return modeManager.getCurrentStrategy().getCurrentSpeed();
     }
 
     public double getCurrentAltitude() {
@@ -73,6 +64,22 @@ public class FlyingVehicle {
             return ((FlyModeStrategy) modeManager.getCurrentStrategy()).getCurrentAltitude();
         }
         throw new UnsupportedOperationException("Altitude is not supported in current mode.");
+    }
+
+    public String getRegistration() {
+        return registration;
+    }
+
+    public void addPilot(Pilot pilot) {
+        if (assignedPilots.add(pilot)) {
+            pilot.assignVehicle(this);
+        }
+    }
+
+    public void removePilot(Pilot pilot) {
+        if (assignedPilots.remove(pilot)) {
+            pilot.removeVehicle(this);
+        }
     }
 
 }

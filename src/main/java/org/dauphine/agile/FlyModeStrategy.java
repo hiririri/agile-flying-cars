@@ -36,8 +36,14 @@ public class FlyModeStrategy implements ModeStrategy {
         return altitudeManager.descend(amount);
     }
 
+    @Override
     public double getCurrentSpeed() {
         return speedManager.getCurrentSpeed();
+    }
+
+    @Override
+    public double getCurrentFuel() {
+        return fuelManager.getCurrentFuel();
     }
 
     public double getCurrentAltitude() {
