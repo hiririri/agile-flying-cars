@@ -1,79 +1,78 @@
 package org.dauphine.agile;
 
-import java.util.Map;
+import static org.dauphine.agile.Mode.FLY;
 
 public class FlyingVehicle {
 
-    private MobilityStrategy mobilityStrategy;
-
-    private String currentMode = "DRIVE";
-
-    private final Map<String, MobilityStrategy> modeStrategyMap;
-
-    private final SpeedManager speedManager;
-    private final AltitudeManager altitudeManager;
-    private final FuelManager fuelManager;
+    private final ModeManager modeManager;
 
     public FlyingVehicle(int maxAltitude, double maxSpeed, double maxFuel) {
-        this.speedManager = new SpeedManager(maxSpeed);
-        this.altitudeManager = new AltitudeManager(maxAltitude);
-        this.fuelManager = new FuelManager(maxFuel);
+        var speedManager = new SpeedManager(maxSpeed);
+        var fuelManager = new FuelManager(maxFuel);
+        var altitudeManager = new AltitudeManager(maxAltitude);
 
-        modeStrategyMap = Map.of("DRIVE", new DriveMobilityStrategy(speedManager, fuelManager),
-                                 "FLY", new FlyMobilityStrategy(speedManager, altitudeManager, fuelManager));
+        var driveStrategy = new DriveModeStrategy.Builder()
+                .fuelManager(fuelManager)
+                .speedManager(speedManager)
+                .build();
 
-        mobilityStrategy = modeStrategyMap.get(currentMode);
+        var flyStrategy = new FlyModeStrategy.Builder()
+                .fuelManager(fuelManager)
+                .speedManager(speedManager)
+                .altitudeManager(altitudeManager)
+                .build();
+
+        modeManager = new ModeManager(Mode.DRIVE, driveStrategy, flyStrategy);
     }
 
     public void switchMode() {
-        switch (currentMode) {
-            case "DRIVE" -> {
-                currentMode = "FLY";
-                mobilityStrategy = modeStrategyMap.get(currentMode);
-            }
-            case "FLY" -> {
-                currentMode = "DRIVE";
-                mobilityStrategy = modeStrategyMap.get(currentMode);
-            }
-        }
+        modeManager.switchMode();
     }
 
-    public void accelerate(double amount) {
-        mobilityStrategy.accelerate(amount);
+    public double accelerate(double amount) {
+        return modeManager.getCurrentStrategy().accelerate(amount);
     }
 
-    public void decelerate(double amount) {
-        mobilityStrategy.decelerate(amount);
+    public double decelerate(double amount) {
+        return modeManager.getCurrentStrategy().decelerate(amount);
     }
 
     public double climb(double amount) {
-        if ("FLY".equals(currentMode)) {
-            return ((FlyMobilityStrategy) mobilityStrategy).climb(amount);
+        var strategy = modeManager.getCurrentStrategy();
+        if (FLY == getCurrentMode()) {
+            return ((FlyModeStrategy) strategy).climb(amount);
         }
-        throw new IllegalStateException("Cannot climb in DRIVE mode");
+        throw new UnsupportedOperationException("Climb is not supported in current mode.");
     }
 
     public double descend(double amount) {
-        if ("FLY".equals(currentMode)) {
-            return ((FlyMobilityStrategy) mobilityStrategy).descend(amount);
+        var strategy = modeManager.getCurrentStrategy();
+        if (FLY == getCurrentMode()) {
+            return ((FlyModeStrategy) strategy).descend(amount);
         }
-        throw new IllegalStateException("Cannot descend in DRIVE mode");
+        throw new UnsupportedOperationException("Descend is not supported in current mode.");
+    }
+
+    public Mode getCurrentMode() {
+        return modeManager.getCurrentMode();
+    }
+
+    public ModeStrategy getCurrentStrategy() {
+        return modeManager.getCurrentStrategy();
     }
 
     public double getCurrentSpeed() {
-        return speedManager.getCurrentSpeed();
+        return switch (getCurrentMode()) {
+            case DRIVE -> ((DriveModeStrategy) modeManager.getCurrentStrategy()).getCurrentSpeed();
+            case FLY -> ((FlyModeStrategy) modeManager.getCurrentStrategy()).getCurrentSpeed();
+        };
     }
 
     public double getCurrentAltitude() {
-        return altitudeManager.getCurrentAltitude();
-    }
-
-    public double getCurrentFuel() {
-        return fuelManager.getCurrentFuel();
-    }
-
-    public String getCurrentMode() {
-        return currentMode;
+        if (FLY == getCurrentMode()) {
+            return ((FlyModeStrategy) modeManager.getCurrentStrategy()).getCurrentAltitude();
+        }
+        throw new UnsupportedOperationException("Altitude is not supported in current mode.");
     }
 
 }

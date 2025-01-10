@@ -3,7 +3,7 @@ package org.dauphine.agile;
 public class FuelManager {
 
     private double currentFuel;
-    private double maxFuel;
+    private final double maxFuel;
 
     public FuelManager(double maxFuel) {
         this.maxFuel = maxFuel;

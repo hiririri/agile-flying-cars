@@ -1,6 +1,6 @@
 package org.dauphine.agile;
 
-public interface MobilityStrategy {
+public interface ModeStrategy {
 
     double accelerate(double amount);
 

@@ -3,8 +3,9 @@ package org.dauphine.agile;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.dauphine.agile.Mode.DRIVE;
+import static org.dauphine.agile.Mode.FLY;
+import static org.junit.jupiter.api.Assertions.*;
 
 class FlyingVehicleTest {
 
@@ -56,9 +57,12 @@ class FlyingVehicleTest {
     @Test
     void testSwitchMode() {
         flyingVehicle.switchMode();
-        assertEquals("FLY", flyingVehicle.getCurrentMode());
+        assertEquals(FLY, flyingVehicle.getCurrentMode());
+        assertInstanceOf(FlyModeStrategy.class, flyingVehicle.getCurrentStrategy());
+
         flyingVehicle.switchMode();
-        assertEquals("DRIVE", flyingVehicle.getCurrentMode());
+        assertEquals(DRIVE, flyingVehicle.getCurrentMode());
+        assertInstanceOf(DriveModeStrategy.class, flyingVehicle.getCurrentStrategy());
     }
 
 }
