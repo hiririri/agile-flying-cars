@@ -1,9 +1,14 @@
 package org.dauphine.agile;
 
+import org.dauphine.agile.mode.FlyModeStrategy;
+import org.dauphine.agile.mode.Mode;
+import org.dauphine.agile.mode.ModeManager;
+import org.dauphine.agile.mode.ModeStrategy;
+
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.dauphine.agile.Mode.FLY;
+import static org.dauphine.agile.mode.Mode.FLY;
 
 public class FlyingVehicle {
 
@@ -57,6 +62,10 @@ public class FlyingVehicle {
 
     public double getCurrentSpeed() {
         return modeManager.getCurrentStrategy().getCurrentSpeed();
+    }
+
+    private double getCurrentFuel() {
+        return modeManager.getCurrentStrategy().getCurrentFuel();
     }
 
     public double getCurrentAltitude() {

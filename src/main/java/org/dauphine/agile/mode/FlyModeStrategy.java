@@ -1,10 +1,16 @@
-package org.dauphine.agile;
+package org.dauphine.agile.mode;
+
+import org.dauphine.agile.AltitudeManager;
+import org.dauphine.agile.FuelManager;
+import org.dauphine.agile.SpeedManager;
 
 public class FlyModeStrategy implements ModeStrategy {
 
     private final SpeedManager speedManager;
     private final FuelManager fuelManager;
     private final AltitudeManager altitudeManager;
+
+    public static final double FUEL_CONSUMPTION = 0.2;
 
     private FlyModeStrategy(SpeedManager speedManager, FuelManager fuelManager, AltitudeManager altitudeManager) {
         this.speedManager = speedManager;
@@ -14,7 +20,7 @@ public class FlyModeStrategy implements ModeStrategy {
 
     @Override
     public double accelerate(double amount) {
-        if (fuelManager.consumeFuel(amount * 0.2)) {
+        if (fuelManager.consumeFuel(amount * FUEL_CONSUMPTION)) {
             return speedManager.accelerate(amount);
         }
         return speedManager.getCurrentSpeed();

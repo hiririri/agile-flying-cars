@@ -1,13 +1,13 @@
 package org.dauphine.agile.ut;
 
-import org.dauphine.agile.DriveModeStrategy;
-import org.dauphine.agile.FlyModeStrategy;
 import org.dauphine.agile.FlyingVehicle;
+import org.dauphine.agile.mode.DriveModeStrategy;
+import org.dauphine.agile.mode.FlyModeStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.dauphine.agile.Mode.DRIVE;
-import static org.dauphine.agile.Mode.FLY;
+import static org.dauphine.agile.mode.Mode.DRIVE;
+import static org.dauphine.agile.mode.Mode.FLY;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FlyingVehicleTest {

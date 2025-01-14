@@ -1,9 +1,13 @@
-package org.dauphine.agile;
+package org.dauphine.agile.mode;
+
+import org.dauphine.agile.AltitudeManager;
+import org.dauphine.agile.FuelManager;
+import org.dauphine.agile.SpeedManager;
 
 import java.util.Map;
 
-import static org.dauphine.agile.Mode.DRIVE;
-import static org.dauphine.agile.Mode.FLY;
+import static org.dauphine.agile.mode.Mode.DRIVE;
+import static org.dauphine.agile.mode.Mode.FLY;
 
 public class ModeManager {
 

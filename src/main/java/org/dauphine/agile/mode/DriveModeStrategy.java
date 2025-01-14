@@ -1,8 +1,14 @@
-package org.dauphine.agile;
+package org.dauphine.agile.mode;
+
+import org.dauphine.agile.FuelManager;
+import org.dauphine.agile.SpeedManager;
 
 public class DriveModeStrategy implements ModeStrategy {
+
     private final SpeedManager speedManager;
     private final FuelManager fuelManager;
+
+    public static final double FUEL_CONSUMPTION = 0.1;
 
     private DriveModeStrategy(SpeedManager speedManager, FuelManager fuelManager) {
         this.speedManager = speedManager;
@@ -11,7 +17,7 @@ public class DriveModeStrategy implements ModeStrategy {
 
     @Override
     public double accelerate(double amount) {
-        if (fuelManager.consumeFuel(amount * 0.1)) {
+        if (fuelManager.consumeFuel(amount * FUEL_CONSUMPTION)) {
             return speedManager.accelerate(amount);
         }
         return speedManager.getCurrentSpeed();

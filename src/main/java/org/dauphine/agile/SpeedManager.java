@@ -10,18 +10,12 @@ public class SpeedManager {
     }
 
     public double accelerate(double amount) {
-        currentSpeed += amount;
-        if (currentSpeed > maxSpeed) {
-            currentSpeed = maxSpeed;
-        }
+        currentSpeed = Math.min(currentSpeed + amount, maxSpeed);
         return currentSpeed;
     }
 
     public double decelerate(double amount) {
-        currentSpeed -= amount;
-        if (currentSpeed < 0) {
-            currentSpeed = 0;
-        }
+        currentSpeed = Math.max(currentSpeed - amount, 0);
         return currentSpeed;
     }
 
