@@ -1,4 +1,4 @@
-package org.dauphine.agile;
+package org.dauphine.agile.mode;
 
 public interface ModeStrategy {
 

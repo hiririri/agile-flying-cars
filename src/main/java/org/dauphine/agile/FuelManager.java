@@ -19,10 +19,7 @@ public class FuelManager {
     }
 
     public void refuel(double amount) {
-        currentFuel += amount;
-        if (currentFuel > maxFuel) {
-            currentFuel = maxFuel;
-        }
+        currentFuel = Math.min(currentFuel + amount, maxFuel);
     }
 
     public double getCurrentFuel() {

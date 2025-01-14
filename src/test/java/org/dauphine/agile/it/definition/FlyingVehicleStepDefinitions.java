@@ -1,12 +1,12 @@
 package org.dauphine.agile.it.definition;
 
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.dauphine.agile.FlyingVehicle;
-import org.dauphine.agile.Mode;
+import org.dauphine.agile.mode.Mode;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FlyingVehicleStepDefinitions {
 
