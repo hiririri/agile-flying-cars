@@ -39,7 +39,7 @@ public class ModeManager {
         if (DRIVE == currentMode) {
             currentMode = FLY;
         } else {
-            if( ((FlyModeStrategy) modeStrategyMap.get(FLY)).getCurrentAltitude() > 0) {
+            if (((FlyModeStrategy) modeStrategyMap.get(FLY)).getCurrentAltitude() > 0) {
                 throw new IllegalStateException("Cannot switch mode while flying.");
             }
             currentMode = DRIVE;
