@@ -1,6 +1,5 @@
-package org.dauphine.agile.ut;
+package org.dauphine.agile;
 
-import org.dauphine.agile.FlyingVehicle;
 import org.dauphine.agile.mode.DriveModeStrategy;
 import org.dauphine.agile.mode.FlyModeStrategy;
 import org.junit.jupiter.api.BeforeEach;
