@@ -79,6 +79,10 @@ public class FlyingVehicle {
         return registration;
     }
 
+    public Set<Pilot> getAssignedPilots() {
+        return assignedPilots;
+    }
+
     public void addPilot(Pilot pilot) {
         if (assignedPilots.add(pilot)) {
             pilot.assignVehicle(this);
