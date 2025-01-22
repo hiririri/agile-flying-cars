@@ -7,11 +7,13 @@ import org.dauphine.agile.FlyingVehicle;
 import org.dauphine.agile.mode.Mode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class FlyingVehicleStepDefinitions {
 
     private FlyingVehicle flyingVehicle;
     private double result;
+    private Exception thrownException;
 
     // Step Definitions for Feature 1: Switching Modes
 
@@ -28,9 +30,18 @@ public class FlyingVehicleStepDefinitions {
         assertEquals(Mode.FLY, flyingVehicle.getCurrentMode());
     }
 
+    @Given("the vehicle is currently flying")
+    public void theVehicleIsCurrentlyFlying() {
+        flyingVehicle.climb(10);
+    }
+
     @When("the pilot switches the mode")
     public void the_pilot_switches_the_mode() {
-        flyingVehicle.switchMode();
+        try {
+            flyingVehicle.switchMode();
+        } catch (Exception e) {
+            thrownException = e;
+        }
     }
 
     @Then("the flying vehicle should be in \"DRIVE\" mode")
@@ -42,6 +53,12 @@ public class FlyingVehicleStepDefinitions {
     public void the_flying_vehicle_should_be_in_fly_mode() {
         assertEquals(Mode.FLY, flyingVehicle.getCurrentMode());
     }
+
+    @Then("an exception should be thrown")
+    public void anExceptionShouldBeThrown() {
+        assertNotNull(thrownException);
+    }
+
 
     // Step Definitions for Feature 2: Acceleration and Climbing
 

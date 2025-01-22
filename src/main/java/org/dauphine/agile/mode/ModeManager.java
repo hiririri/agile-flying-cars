@@ -36,7 +36,14 @@ public class ModeManager {
     }
 
     public void switchMode() {
-        currentMode = (currentMode == DRIVE) ? FLY : DRIVE;
+        if (DRIVE == currentMode) {
+            currentMode = FLY;
+        } else {
+            if( ((FlyModeStrategy) modeStrategyMap.get(FLY)).getCurrentAltitude() > 0) {
+                throw new IllegalStateException("Cannot switch mode while flying.");
+            }
+            currentMode = DRIVE;
+        }
     }
 
     public ModeStrategy getCurrentStrategy() {

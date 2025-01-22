@@ -18,3 +18,12 @@ Feature: Switch Between Drive and Fly Modes
     Given a flying vehicle is in "FLY" mode
     When the pilot switches the mode
     Then the flying vehicle should be in "DRIVE" mode
+
+  # Scenario: Cannot switch from Fly to Drive mode while flying
+  # Description: Verifies that the vehicle does not switch from Fly to Drive mode while flying.
+  Scenario: Switch from Fly mode to Drive mode while flying
+    Given a flying vehicle is in "FLY" mode
+    And the vehicle is currently flying
+    When the pilot switches the mode
+    Then the flying vehicle should be in "FLY" mode
+    And an exception should be thrown

@@ -6,6 +6,7 @@ import org.dauphine.agile.SpeedManager;
 
 public class FlyModeStrategy implements ModeStrategy {
 
+    public static final double FUEL_CONSUMPTION_CLIMB = 0.5;
     private final SpeedManager speedManager;
     private final FuelManager fuelManager;
     private final AltitudeManager altitudeManager;
@@ -32,7 +33,7 @@ public class FlyModeStrategy implements ModeStrategy {
     }
 
     public double climb(double amount) {
-        if (fuelManager.consumeFuel(amount * 0.5)) {
+        if (fuelManager.consumeFuel(amount * FUEL_CONSUMPTION_CLIMB)) {
             return altitudeManager.climb(amount);
         }
         throw new IllegalStateException("Not enough fuel to climb.");
