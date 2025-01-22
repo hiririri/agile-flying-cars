@@ -14,9 +14,9 @@ Feature: Manage Vehicle Acceleration and Climbing
 
     Examples:
       | initialSpeed | accelerationAmount | expectedSpeed |
-      | 50           | 20                 | 70           |
-      | 80           | 10                 | 90           |
-      | 0            | 15                 | 15           |
+      | 50           | 20                 | 70            |
+      | 80           | 10                 | 90            |
+      | 0            | 15                 | 15            |
 
   # Scenario: Climb in Fly mode
   # Description: Verifies that the vehicle can climb when in Fly mode.
@@ -27,6 +27,6 @@ Feature: Manage Vehicle Acceleration and Climbing
 
     Examples:
       | initialAltitude | climbAmount | expectedAltitude |
-      | 1000            | 500        | 1500             |
-      | 2000            | 1000       | 3000             |
-      | 500             | 250        | 750              |
+      | 1000            | 500         | 1500             |
+      | 2000            | 1000        | 3000             |
+      | 500             | 250         | 750              |
